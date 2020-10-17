@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_main"
+        android:id="@+id/action_list"
         android:enabled="true"
         android:icon="@drawable/ic_list"
         android:title="@string/patents"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_fav"
         android:enabled="true"
         android:icon="@drawable/ic_fav"
         android:title="@string/favorite"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
 </menu>
