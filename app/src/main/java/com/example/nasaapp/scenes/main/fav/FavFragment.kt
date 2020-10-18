@@ -14,10 +14,10 @@ class FavFragment: BaseTemplate.BaseFragment() {
     }
 
     override fun initValues() {
-        TODO("Not yet implemented")
+
     }
 
     override fun initListeners() {
-        TODO("Not yet implemented")
+
     }
 }

@@ -1,5 +1,6 @@
 package com.example.nasaapp.scenes.main.list
 
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.nasaapp.R
 import com.example.nasaapp.base.BaseTemplate
@@ -23,12 +24,19 @@ class ListFragment: BaseTemplate.BaseFragment() {
     }
 
     override fun initValues() {
-        TODO("Not yet implemented")
+
     }
 
     override fun initListeners() {
         search_button.setOnClickListener {
-            mViewModel.getPatentsAbout(search_text.text.toString())
+            mViewModel.getPatentsAbout(search_text.text.toString()).observe(this, Observer {
+                if (it != null && it.isNotEmpty()) {
+                    print(it)
+                } else {
+                    // Mostrar popup de que la nasa no tiene patentes de ese elemento, escoja otro elemento:
+                    print("No results with that object")
+                }
+            })
         }
     }
 }

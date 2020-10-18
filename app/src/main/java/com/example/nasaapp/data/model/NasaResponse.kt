@@ -20,5 +20,5 @@ data class NasaResponse(
 	val page: Int? = null,
 
 	@field:SerializedName("results")
-	val results: List<String?>? = null
+	val results: List<List<String>>? = null
 ) : Parcelable

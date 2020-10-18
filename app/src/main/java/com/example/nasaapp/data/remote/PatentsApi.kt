@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface PatentsApi {
 
-    @GET("techtransfer/patent")
+    @GET("techtransfer/patent/")
     @Headers("Content-Type: application/json")
     fun getPatents(@Query("word") element: String, @Query("api_key") apiKey: String): Call<NasaResponse>
 }
