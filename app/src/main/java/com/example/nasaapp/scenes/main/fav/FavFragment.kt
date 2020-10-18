@@ -1,4 +1,4 @@
-package com.example.nasaapp.scenes.fav
+package com.example.nasaapp.scenes.main.fav
 
 import com.example.nasaapp.R
 import com.example.nasaapp.base.BaseTemplate

@@ -3,8 +3,8 @@ package com.example.nasaapp.scenes.main
 import android.os.Bundle
 import com.example.nasaapp.R
 import com.example.nasaapp.base.BaseTemplate
-import com.example.nasaapp.scenes.fav.FavFragment
-import com.example.nasaapp.scenes.list.ListFragment
+import com.example.nasaapp.scenes.main.fav.FavFragment
+import com.example.nasaapp.scenes.main.list.ListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
