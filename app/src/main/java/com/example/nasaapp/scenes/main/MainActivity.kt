@@ -1,15 +1,14 @@
-package com.example.nasaapp.main
+package com.example.nasaapp.scenes.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
 import com.example.nasaapp.R
-import com.example.nasaapp.fav.FavFragment
-import com.example.nasaapp.list.ListFragment
+import com.example.nasaapp.base.BaseTemplate
+import com.example.nasaapp.scenes.fav.FavFragment
+import com.example.nasaapp.scenes.list.ListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseTemplate.BaseActivity() {
 
     var listFragment = ListFragment.getNewInstance()
     var favFragment = FavFragment.getNewInstance()
@@ -32,18 +31,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun getXMLLayout(): Int {
+        return R.layout.activity_main
+    }
 
-        title = "Patents"
+    override fun initValues(savedInstanceState: Bundle?) {
+        title = "NASA patents"
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                     .add(R.id.main_container, listFragment)
                     .commit()
         }
+    }
 
+    override fun initListeners() {
         navigation_bar.setOnNavigationItemSelectedListener (navListener)
     }
 }
