@@ -1,5 +1,3 @@
 package com.example.nasaapp.data.model
 
-class Patent {
-
-}
+data class Patent(private val name: String, private val description: String, private val imageUrlString: String)
