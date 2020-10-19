@@ -10,6 +10,7 @@ import com.example.nasaapp.base.BaseTemplate
 import com.example.nasaapp.common.AppViewModelFactory
 import com.example.nasaapp.data.model.Patent
 import com.example.nasaapp.scenes.main.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_list.*
 
 class ListFragment: BaseTemplate.BaseFragment() {
@@ -40,6 +41,7 @@ class ListFragment: BaseTemplate.BaseFragment() {
                 } else {
                     // Mostrar popup de que la nasa no tiene patentes de ese elemento, escoja otro elemento:
                     print("No results with that object")
+                    Snackbar.make(main_fragment_container,"There are no patents for that object.", Snackbar.LENGTH_LONG).show()
                 }
             })
         }
