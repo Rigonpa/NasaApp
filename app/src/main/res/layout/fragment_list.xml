@@ -7,8 +7,8 @@
     android:background="@color/third"
     tools:context=".scenes.main.list.ListFragment">
 
-    <FrameLayout
-        android:id="@+id/container_for_patents"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/search_area"
