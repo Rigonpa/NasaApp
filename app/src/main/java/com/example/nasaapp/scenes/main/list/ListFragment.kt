@@ -1,5 +1,8 @@
 package com.example.nasaapp.scenes.main.list
 
+import android.content.Intent
+import android.os.Bundle
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -9,11 +12,12 @@ import com.example.nasaapp.R
 import com.example.nasaapp.base.BaseTemplate
 import com.example.nasaapp.common.AppViewModelFactory
 import com.example.nasaapp.data.model.Patent
+import com.example.nasaapp.scenes.detail.DetailActivity
 import com.example.nasaapp.scenes.main.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_list.*
 
-class ListFragment: BaseTemplate.BaseFragment() {
+class ListFragment : BaseTemplate.BaseFragment() {
 
     private lateinit var adapter: ListAdapter
 
@@ -41,7 +45,11 @@ class ListFragment: BaseTemplate.BaseFragment() {
                 } else {
                     // Mostrar popup de que la nasa no tiene patentes de ese elemento, escoja otro elemento:
                     print("No results with that object")
-                    Snackbar.make(main_fragment_container,"There are no patents for that object.", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(
+                        main_fragment_container,
+                        "There are no patents for that object.",
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
             })
         }
@@ -49,10 +57,36 @@ class ListFragment: BaseTemplate.BaseFragment() {
 
     private fun loadRecyclerView(it: List<Patent>) {
         activity?.let { appContext ->
-            adapter = ListAdapter(it, appContext)
+            adapter = ListAdapter(it, appContext) {
+                goToDetailActivity(appContext, it)
+            }
             recycler_view.adapter = adapter
             recycler_view.layoutManager = LinearLayoutManager(appContext)
-            recycler_view.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            recycler_view.addItemDecoration(
+                DividerItemDecoration(
+                    context,
+                    DividerItemDecoration.VERTICAL
+                )
+            )
+        }
+    }
+
+    private fun goToDetailActivity(
+        appContext: FragmentActivity,
+        patent: Patent
+    ) {
+        Intent(appContext, DetailActivity::class.java).apply {
+
+            arguments = Bundle().apply {
+                this.putSerializable("PATENT_REMOTE", patent)
+            }
+
+            arguments?.let {
+                putExtras(it)
+            }
+
+            putExtra("PATENT_STATUS", "not_fav_patent")
+            startActivity(this)
         }
     }
 }
