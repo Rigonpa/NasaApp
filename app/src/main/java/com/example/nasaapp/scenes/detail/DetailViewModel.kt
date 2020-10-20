@@ -10,4 +10,8 @@ class DetailViewModel(private val application: Application): ViewModel() {
     fun savePatent(patent: Patent) {
         PatentsRepository.getNewInstance().savePatent(patent, application.applicationContext)
     }
+
+    fun deletePatent(patent: Patent) {
+        PatentsRepository.getNewInstance().deletePatent(patent, application.applicationContext)
+    }
 }

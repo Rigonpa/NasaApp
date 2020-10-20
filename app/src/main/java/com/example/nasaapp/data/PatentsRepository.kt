@@ -25,6 +25,10 @@ class PatentsRepository {
     fun getFavouritePatents(context: Context): LiveData<List<Patent>> =
         PatentRoomDatabase.getNewInstance(context).patentDao().getFavouritePatents()
 
+    fun deletePatent(patent: Patent, context: Context) {
+        PatentRoomDatabase.getNewInstance(context).patentDao().deletePatent(patent)
+    }
+
 
     // Retrofit - NASA API
     fun getPatentsAbout(element: String): MutableLiveData<List<Patent>?> {

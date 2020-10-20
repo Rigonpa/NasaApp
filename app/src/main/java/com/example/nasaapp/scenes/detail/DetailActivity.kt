@@ -16,6 +16,8 @@ class DetailActivity : BaseTemplate.BaseActivity() {
         ViewModelProvider(this, factory).get(DetailViewModel::class.java)
     }
 
+    private var favApod = false
+
     private lateinit var patent: Patent
 
     override fun getXMLLayout(): Int {
@@ -47,13 +49,19 @@ class DetailActivity : BaseTemplate.BaseActivity() {
         } else {
             patent = intent.getSerializableExtra("PATENT_LOCAL") as Patent
             detail_button.text = "NOT FAV"
+            favApod = true
         }
 
     }
 
     override fun initListeners() {
         detail_button.setOnClickListener {
-            mViewModel.savePatent(patent)
+            if(favApod) {
+                mViewModel.deletePatent(patent)
+            } else {
+                mViewModel.savePatent(patent)
+            }
+
             finish()
         }
     }
