@@ -1,12 +1,13 @@
 package com.example.nasaapp.scenes.main
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.nasaapp.data.model.Patent
-import com.example.nasaapp.data.remote.PatentsRepository
+import com.example.nasaapp.data.PatentsRepository
 
-class MainViewModel(private val context: Context): ViewModel() {
+class MainViewModel(private val context: Context) : ViewModel() {
     private var patentsData = MutableLiveData<List<Patent>?>()
 
     //  Retrofit calls
@@ -16,6 +17,8 @@ class MainViewModel(private val context: Context): ViewModel() {
     }
 
 
-
     // Room calls
+    fun getFavouritePatents(): LiveData<List<Patent>> =
+        PatentsRepository.getNewInstance().getFavouritePatents(context)
+
 }

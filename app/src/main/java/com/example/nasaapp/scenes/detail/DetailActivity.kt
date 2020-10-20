@@ -1,13 +1,20 @@
 package com.example.nasaapp.scenes.detail
 
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.nasaapp.R
 import com.example.nasaapp.base.BaseTemplate
+import com.example.nasaapp.common.AppViewModelFactory
 import com.example.nasaapp.data.model.Patent
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : BaseTemplate.BaseActivity() {
+
+    private val mViewModel: DetailViewModel by lazy {
+        val factory = AppViewModelFactory(application)
+        ViewModelProvider(this, factory).get(DetailViewModel::class.java)
+    }
 
     private lateinit var patent: Patent
 
@@ -46,7 +53,8 @@ class DetailActivity : BaseTemplate.BaseActivity() {
 
     override fun initListeners() {
         detail_button.setOnClickListener {
-            print("TRATRATRA")
+            mViewModel.savePatent(patent)
+            finish()
         }
     }
 }
