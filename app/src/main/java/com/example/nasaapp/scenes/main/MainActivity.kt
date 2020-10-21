@@ -14,17 +14,19 @@ class MainActivity : BaseTemplate.BaseActivity() {
     var favFragment = FavFragment.getNewInstance()
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
-        when(it.itemId) {
+        when (it.itemId) {
             R.id.action_list -> {
                 supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_container, listFragment)
-                        .commit()
+                    .hide(favFragment)
+                    .show(listFragment)
+                    .commit()
                 true
             }
             R.id.action_fav -> {
                 supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_container, favFragment)
-                        .commit()
+                    .hide(listFragment)
+                    .show(favFragment)
+                    .commit()
                 true
             }
             else -> throw IllegalArgumentException()
@@ -40,12 +42,18 @@ class MainActivity : BaseTemplate.BaseActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .add(R.id.main_container, listFragment)
-                    .commit()
+                .add(R.id.main_container, listFragment)
+                .show(listFragment)
+                .commit()
+
+            supportFragmentManager.beginTransaction()
+                .add(R.id.main_container, favFragment)
+                .hide(favFragment)
+                .commit()
         }
     }
 
     override fun initListeners() {
-        navigation_bar.setOnNavigationItemSelectedListener (navListener)
+        navigation_bar.setOnNavigationItemSelectedListener(navListener)
     }
 }
