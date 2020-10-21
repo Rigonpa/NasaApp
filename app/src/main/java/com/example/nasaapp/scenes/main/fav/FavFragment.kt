@@ -40,9 +40,10 @@ class FavFragment: BaseTemplate.BaseFragment() {
     override fun initValues() {
         mViewModel.getFavouritePatents().observe(this, Observer {
             activity?.let { appContext ->
-                adapter = FavAdapter(it, appContext) {
+                adapter = FavAdapter(appContext) {
                     goToDetailActivity(appContext, it)
                 }
+                adapter.setPatents(it)
                 recycler_view.adapter = adapter
                 recycler_view.layoutManager = LinearLayoutManager(appContext)
                 recycler_view.addItemDecoration(

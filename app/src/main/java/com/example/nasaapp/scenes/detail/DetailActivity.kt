@@ -38,26 +38,26 @@ class DetailActivity : BaseTemplate.BaseActivity() {
         Glide.with(this@DetailActivity)
             .load(patent.imageUrlString)
             .apply(RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
-            .into(detail_patent_image)
-        detail_patent_name.text = patent.name
-        detail_patent_desc.text = patent.description
+            .into(card_view_detail_image)
+        card_view_detail_name.text = patent.name
+        card_view_detail_desc.text = patent.description
     }
 
     private fun deserializePatent() {
 
         if (intent.getStringExtra("PATENT_STATUS") == "not_fav_patent") {
             patent = intent.getSerializableExtra("PATENT_REMOTE") as Patent
-            detail_button.text = "FAV"
+            detail_boton.setImageResource(R.drawable.ic_star)
         } else {
             patent = intent.getSerializableExtra("PATENT_LOCAL") as Patent
-            detail_button.text = "NOT FAV"
+            detail_boton.setImageResource(R.drawable.ic_delete)
             favApod = true
         }
 
     }
 
     override fun initListeners() {
-        detail_button.setOnClickListener {
+        detail_boton.setOnClickListener {
             if(favApod) {
                 mViewModel.deletePatent(patent)
             } else {

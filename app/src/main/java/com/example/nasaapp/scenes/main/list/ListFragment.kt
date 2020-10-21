@@ -57,9 +57,10 @@ class ListFragment : BaseTemplate.BaseFragment() {
 
     private fun loadRecyclerView(it: List<Patent>) {
         activity?.let { appContext ->
-            adapter = ListAdapter(it, appContext) {
+            adapter = ListAdapter(appContext) {
                 goToDetailActivity(appContext, it)
             }
+            adapter.setPatents(it)
             recycler_view.adapter = adapter
             recycler_view.layoutManager = LinearLayoutManager(appContext)
             recycler_view.addItemDecoration(

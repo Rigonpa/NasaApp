@@ -12,7 +12,15 @@ import com.example.nasaapp.R
 import com.example.nasaapp.data.model.Patent
 import kotlinx.android.synthetic.main.item_patent.view.*
 
-class ListAdapter(private var patents: List<Patent>, private val context: Context, private val clickListener: (Patent) -> Unit): RecyclerView.Adapter<ListAdapter.PatentHolder>() {
+class ListAdapter(private val context: Context, private val clickListener: (Patent) -> Unit): RecyclerView.Adapter<ListAdapter.PatentHolder>() {
+
+    private var patents = mutableListOf<Patent>()
+
+    fun setPatents(patents: List<Patent>) {
+        this.patents.clear()
+        this.patents.addAll(patents)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PatentHolder {
          val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_patent, parent, false)
