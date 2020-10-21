@@ -3,6 +3,7 @@ package com.example.nasaapp.scenes.detail
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.nasaapp.R
 import com.example.nasaapp.base.BaseTemplate
 import com.example.nasaapp.common.AppViewModelFactory
@@ -36,6 +37,7 @@ class DetailActivity : BaseTemplate.BaseActivity() {
     private fun setValueToUI() {
         Glide.with(this@DetailActivity)
             .load(patent.imageUrlString)
+            .apply(RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
             .into(detail_patent_image)
         detail_patent_name.text = patent.name
         detail_patent_desc.text = patent.description
