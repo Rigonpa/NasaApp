@@ -5,23 +5,21 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.nasaapp.R
 import com.example.nasaapp.base.BaseTemplate
 import com.example.nasaapp.common.AppViewModelFactory
 import com.example.nasaapp.data.model.Patent
 import com.example.nasaapp.scenes.detail.DetailActivity
-import com.example.nasaapp.scenes.main.LoadingFragment
 import com.example.nasaapp.scenes.main.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+import koleton.api.hideSkeleton
+import koleton.api.loadSkeleton
 import kotlinx.android.synthetic.main.fragment_list.*
 
 class ListFragment : BaseTemplate.BaseFragment() {
 
     private lateinit var adapter: ListAdapter
-    var loadingFragment = LoadingFragment.getNewInstance()
 
     companion object {
         fun getNewInstance() = ListFragment()
@@ -39,22 +37,14 @@ class ListFragment : BaseTemplate.BaseFragment() {
     override fun initValues() {
     }
 
-
-    private fun enableLoadingDialog(enabled: Boolean = true) {
-        if (enabled) {
-            loadingFragment.show(childFragmentManager, "")
-        } else
-            loadingFragment.dismiss()
-    }
-
     override fun initListeners() {
         search_button.setOnClickListener {
-            enableLoadingDialog()
+            recycler_view.loadSkeleton(R.layout.item_patent)
             mViewModel.getPatentsAbout(search_text.text.toString()).observe(this, Observer {
                 if (it != null && it.isNotEmpty()) {
                     loadRecyclerView(it)
                 } else {
-                    enableLoadingDialog(false)
+                    recycler_view.hideSkeleton()
                     Snackbar.make(
                         main_fragment_container,
                         "There are no patents for that object.",
@@ -70,7 +60,7 @@ class ListFragment : BaseTemplate.BaseFragment() {
             adapter = ListAdapter(appContext) {
                 goToDetailActivity(appContext, it)
             }
-            enableLoadingDialog(false)
+            recycler_view.hideSkeleton()
             adapter.setPatents(it)
             recycler_view.adapter = adapter
             recycler_view.layoutManager = LinearLayoutManager(appContext)
