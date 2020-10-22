@@ -50,6 +50,7 @@ class MainActivity : BaseTemplate.BaseActivity() {
                 .add(R.id.main_container, favFragment)
                 .hide(favFragment)
                 .commit()
+
         }
     }
 

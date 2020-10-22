@@ -13,6 +13,7 @@ import com.example.nasaapp.base.BaseTemplate
 import com.example.nasaapp.common.AppViewModelFactory
 import com.example.nasaapp.data.model.Patent
 import com.example.nasaapp.scenes.detail.DetailActivity
+import com.example.nasaapp.scenes.main.LoadingFragment
 import com.example.nasaapp.scenes.main.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_list.*
 class ListFragment : BaseTemplate.BaseFragment() {
 
     private lateinit var adapter: ListAdapter
+    var loadingFragment = LoadingFragment.getNewInstance()
 
     companion object {
         fun getNewInstance() = ListFragment()
@@ -37,14 +39,22 @@ class ListFragment : BaseTemplate.BaseFragment() {
     override fun initValues() {
     }
 
+
+    private fun enableLoadingDialog(enabled: Boolean = true) {
+        if (enabled) {
+            loadingFragment.show(childFragmentManager, "")
+        } else
+            loadingFragment.dismiss()
+    }
+
     override fun initListeners() {
         search_button.setOnClickListener {
+            enableLoadingDialog()
             mViewModel.getPatentsAbout(search_text.text.toString()).observe(this, Observer {
                 if (it != null && it.isNotEmpty()) {
                     loadRecyclerView(it)
                 } else {
-                    // Mostrar popup de que la nasa no tiene patentes de ese elemento, escoja otro elemento:
-                    print("No results with that object")
+                    enableLoadingDialog(false)
                     Snackbar.make(
                         main_fragment_container,
                         "There are no patents for that object.",
@@ -60,6 +70,7 @@ class ListFragment : BaseTemplate.BaseFragment() {
             adapter = ListAdapter(appContext) {
                 goToDetailActivity(appContext, it)
             }
+            enableLoadingDialog(false)
             adapter.setPatents(it)
             recycler_view.adapter = adapter
             recycler_view.layoutManager = LinearLayoutManager(appContext)
