@@ -63,12 +63,6 @@ class ListFragment : BaseTemplate.BaseFragment() {
             adapter.setPatents(it)
             recycler_view.adapter = adapter
             recycler_view.layoutManager = LinearLayoutManager(appContext)
-            recycler_view.addItemDecoration(
-                DividerItemDecoration(
-                    context,
-                    DividerItemDecoration.VERTICAL
-                )
-            )
         }
     }
 
