@@ -37,7 +37,7 @@ class DetailActivity : BaseTemplate.BaseActivity() {
     private fun setValueToUI() {
         Glide.with(this@DetailActivity)
             .load(patent.imageUrlString)
-            .apply(RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
+            .apply(RequestOptions().placeholder(R.drawable.ic_launcher_foreground_back))
             .into(card_view_detail_image)
         card_view_detail_name.text = patent.name
         card_view_detail_desc.text = patent.description
