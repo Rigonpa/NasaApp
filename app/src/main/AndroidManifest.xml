@@ -17,7 +17,8 @@
         <activity
             android:name="com.example.nasaapp.scenes.detail.DetailActivity"
             android:theme="@style/Theme.NasaApp.NoActionBar" />
-        <activity android:name="com.example.nasaapp.scenes.main.MainActivity">
+        <activity android:name="com.example.nasaapp.scenes.main.MainActivity"
+            android:theme="@style/Theme.NasaApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

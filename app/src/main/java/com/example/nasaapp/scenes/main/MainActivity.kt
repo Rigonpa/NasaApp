@@ -38,7 +38,7 @@ class MainActivity : BaseTemplate.BaseActivity() {
     }
 
     override fun initValues(savedInstanceState: Bundle?) {
-        title = "NASA patents"
+        toolbar_title.text = "NASA patents"
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
